@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#101820">
+<title>Araç İletişim</title>
+<link rel="stylesheet" href="style.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+<header class="top"><div class="brand-mark">QR</div><div><strong>ARAÇ İLETİŞİM</strong><small>Güvenli iletişim sayfası</small></div></header>
+<main>
+<section id="publicPage" class="panel">
+  <div id="profileOff" class="hidden notice"><h1>Profil geçici olarak kapalı</h1><p>Bu araç için iletişim bilgileri şu anda görüntülenmiyor.</p></div>
+  <div id="profileContent">
+    <div class="hero"><div class="car-icon">🚘</div><div><p class="eyebrow">ARAÇ SAHİBİ</p><h1 id="publicName">Araç sahibi</h1><p id="publicVehicle" class="muted">Araç bilgisi belirtilmedi</p></div></div>
+    <div id="publicDetails" class="details"></div>
+    <div class="actions" id="publicActions"></div>
+    <hr>
+    <h2>Not bırak / iletişim kur</h2>
+    <p class="muted">Aracımla ilgili bir not iletebilir, istersen iletişim bilgini de bırakabilirsin.</p>
+    <form id="noteForm">
+      <label>Notun <span>*</span><textarea id="noteText" maxlength="1500" required placeholder="Örn. aracınızın farları açık kalmış..."></textarea></label>
+      <label>Adın (isteğe bağlı)<input id="senderName" maxlength="80" placeholder="Ad soyad"></label>
+      <label>Telefon veya e-posta (isteğe bağlı)<input id="senderContact" maxlength="120" placeholder="İletişim bilgisi"></label>
+      <button type="submit" class="primary">Notu gönder</button><p id="noteStatus" class="status" role="status"></p>
+    </form>
+  </div>
+</section>
+
+<section id="adminLogin" class="panel hidden">
+  <p class="eyebrow">YÖNETİM</p><h1>Yönetim paneli</h1><p class="muted">Yalnızca yetkili hesapla giriş yapılır.</p>
+  <form id="loginForm"><label>E-posta<input id="loginEmail" type="email" autocomplete="username" required></label><label>Şifre<input id="loginPassword" type="password" autocomplete="current-password" required></label><button class="primary">Giriş yap</button><p id="loginStatus" class="status"></p></form>
+</section>
+
+<section id="adminPanel" class="panel hidden">
+  <div class="admin-head"><div><p class="eyebrow">YÖNETİM</p><h1>Kontrol paneli</h1></div><button id="logoutBtn" class="secondary">Çıkış</button></div>
+  <p class="muted">Değişiklikleri kaydettiğinde ziyaretçilerin gördüğü sayfa güncellenir. QR adresin değişmez.</p>
+  <form id="profileForm">
+    <h2>Profil bilgileri</h2>
+    <label>Görünen ad<input id="fName" maxlength="100" placeholder="Ad veya tercih edilen isim"></label>
+    <label>Araç bilgisi<input id="fVehicle" maxlength="120" placeholder="Örn. Seat Leon FR · 2015"></label>
+    <label>Telefon<input id="fPhone" maxlength="40" placeholder="05XX XXX XX XX"></label>
+    <label>WhatsApp numarası<input id="fWhatsapp" maxlength="20" placeholder="905XXXXXXXXX — ülke koduyla, boşluksuz"></label>
+    <label>Plaka<input id="fPlate" maxlength="20" placeholder="İsteğe bağlı"></label>
+    <div class="toggles">
+      <label class="toggle">Profil yayında <input id="vProfile" type="checkbox"></label>
+      <label class="toggle">Adı göster <input id="vName" type="checkbox"></label>
+      <label class="toggle">Araç bilgisini göster <input id="vVehicle" type="checkbox"></label>
+      <label class="toggle">Telefonu göster <input id="vPhone" type="checkbox"></label>
+      <label class="toggle">WhatsApp butonunu göster <input id="vWhatsapp" type="checkbox"></label>
+      <label class="toggle">Plakayı göster <input id="vPlate" type="checkbox"></label>
+      <label class="toggle">Not formunu göster <input id="vNotes" type="checkbox"></label>
+    </div>
+    <button class="primary" type="submit">Değişiklikleri kaydet</button><p id="saveStatus" class="status"></p>
+  </form>
+  <hr>
+  <div class="admin-head"><div><h2>Gelen notlar</h2><p class="muted">Notlar sadece giriş yapan yönetici tarafından görüntülenir.</p></div><button id="refreshNotes" class="secondary">Yenile</button></div>
+  <div id="notesList" class="notes-list"><p class="muted">Notlar yükleniyor…</p></div>
+  <hr>
+  <h2>QR kodun</h2><p class="muted">Bu kod, yayınlanan site adresine yönelir. Siteyi yayınladıktan sonra QR kodunu indirip yazdırabilirsin.</p>
+  <div id="qrBox" class="qr-box"></div><p id="siteUrl" class="muted url"></p>
+  <button id="downloadQr" class="secondary" type="button">QR kodunu PNG indir</button>
+</section>
+</main>
+<footer>Bilgilerini yalnızca paylaşmak istediğin ölçüde yayınla.</footer>
+<script src="app.js"></script>
+</body></html>
